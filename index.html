@@ -1,0 +1,3327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasperella's Fashion Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --purple: #6B3FA0;
+            --purple-dark: #4A2772;
+            --purple-light: #9B6FC8;
+            --purple-pale: #F5EEFF;
+            --gold: #C9A96E;
+            --gold-light: #E8D5B0;
+            --cream: #FDF8F4;
+            --white: #FFFFFF;
+            --text: #2A1A3E;
+            --text-muted: #7A6890;
+            --border: rgba(107, 63, 160, 0.15);
+            --shadow: 0 8px 40px rgba(107, 63, 160, 0.12);
+            --radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            overflow-x: hidden
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--purple-pale)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--purple-light);
+            border-radius: 3px
+        }
+
+        /* TYPOGRAPHY */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.15
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem)
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem)
+        }
+
+        h3 {
+            font-size: clamp(1.4rem, 2.5vw, 2rem)
+        }
+
+        h4 {
+            font-size: 1.2rem
+        }
+
+        p {
+            line-height: 1.75;
+            color: var(--text-muted)
+        }
+
+        /* UTILITY */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 4vw, 3rem)
+        }
+
+        .section {
+            padding: clamp(4rem, 8vw, 8rem) 0
+        }
+
+        .section-label {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            display: block
+        }
+
+        .section-title {
+            color: var(--purple-dark);
+            margin-bottom: 1rem
+        }
+
+        .section-sub {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(107, 63, 160, 0.35)
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(107, 63, 160, 0.45)
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--purple);
+            border: 1.5px solid var(--purple)
+        }
+
+        .btn-outline:hover {
+            background: var(--purple);
+            color: #fff;
+            transform: translateY(-2px)
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #a8824c);
+            color: #fff
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 169, 110, 0.4)
+        }
+
+        /* IMAGE PLACEHOLDER SYSTEM */
+        .img-placeholder {
+            width: 100%;
+            background: linear-gradient(135deg, var(--purple-pale), var(--gold-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            color: var(--purple-light);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            overflow: hidden;
+            position: relative
+        }
+
+        .img-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(107, 63, 160, 0.08), rgba(201, 169, 110, 0.12))
+        }
+
+        .img-placeholder svg {
+            position: relative;
+            z-index: 1;
+            opacity: 0.5
+        }
+
+        .img-placeholder span {
+            position: relative;
+            z-index: 1;
+            opacity: 0.7
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: var(--transition)
+        }
+
+        nav.scrolled {
+            background: rgba(253, 248, 244, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(107, 63, 160, 0.1)
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--purple), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--purple-dark);
+            line-height: 1.1
+        }
+
+        .logo-text span {
+            display: block;
+            font-size: 0.65rem;
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold)
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s
+        }
+
+        .nav-links a:hover {
+            color: var(--purple)
+        }
+
+        .nav-cta {
+            flex-shrink: 0
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--purple);
+            border-radius: 2px;
+            transition: var(--transition)
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(253, 248, 244, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem
+        }
+
+        .mobile-menu.open {
+            display: flex
+        }
+
+        .mobile-menu a {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--purple-dark);
+            text-decoration: none;
+            opacity: 0;
+            animation: fadeInUp 0.4s forwards
+        }
+
+        .mobile-menu a:nth-child(1) {
+            animation-delay: 0.05s
+        }
+
+        .mobile-menu a:nth-child(2) {
+            animation-delay: 0.1s
+        }
+
+        .mobile-menu a:nth-child(3) {
+            animation-delay: 0.15s
+        }
+
+        .mobile-menu a:nth-child(4) {
+            animation-delay: 0.2s
+        }
+
+        .mobile-menu a:nth-child(5) {
+            animation-delay: 0.25s
+        }
+
+        .mobile-menu a:nth-child(6) {
+            animation-delay: 0.3s
+        }
+
+        .mobile-menu a:nth-child(7) {
+            animation-delay: 0.35s
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--purple);
+            cursor: pointer
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding-top: 90px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--cream) 0%, #F0E6FF 100%)
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(107, 63, 160, 0.08), transparent 70%);
+            pointer-events: none
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.1), transparent 70%);
+            pointer-events: none
+        }
+
+        .hero-content {
+            padding: clamp(2rem, 5vw, 5rem) clamp(1rem, 4vw, 4rem);
+            animation: fadeInLeft 1s ease forwards
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(107, 63, 160, 0.1);
+            border: 1px solid rgba(107, 63, 160, 0.2);
+            border-radius: 50px;
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 1.5rem
+        }
+
+        .hero h1 {
+            color: var(--purple);
+            margin-bottom: 1.5rem;
+            font-style: italic
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            max-width: 500px
+        }
+
+        .hero-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gold);
+            margin-bottom: 2.5rem
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem
+        }
+
+        .stat-item {
+            text-align: center
+        }
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--purple-dark);
+            line-height: 1
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 0.25rem
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 100%;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInRight 1s ease forwards
+        }
+
+        .hero-img-main {
+            width: 100%;
+            height: 100%;
+            min-height: 600px;
+            object-fit: cover
+        }
+
+        .hero-img-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .hero-float-card {
+            position: absolute;
+            bottom: 2rem;
+            left: -2rem;
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: float 4s ease-in-out infinite
+        }
+
+        .hero-float-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--purple-pale);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem
+        }
+
+        .hero-float-text strong {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--purple-dark)
+        }
+
+        .hero-float-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted)
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted)
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--purple), transparent);
+            animation: scrollPulse 2s ease-in-out infinite
+        }
+
+        /* ===== BRAND STRIP ===== */
+        .brand-strip {
+            background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+            padding: 1.25rem 0;
+            overflow: hidden
+        }
+
+        .brand-strip-inner {
+            display: flex;
+            gap: 4rem;
+            animation: marquee 20s linear infinite;
+            white-space: nowrap
+        }
+
+        .brand-strip-item {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-shrink: 0
+        }
+
+        .brand-strip-item::before {
+            content: '✦';
+            color: var(--gold);
+            font-size: 0.7rem
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            background: #fff
+        }
+
+        .about-text .section-title {
+            text-align: left
+        }
+
+        .about-text .section-label {
+            text-align: left
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-muted)
+        }
+
+        .feature-list li::before {
+            content: '✦';
+            color: var(--gold);
+            font-size: 0.7rem;
+            margin-top: 0.35rem;
+            flex-shrink: 0
+        }
+
+        .about-visual {
+            position: relative
+        }
+
+        .about-img-main {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 500px;
+            box-shadow: var(--shadow)
+        }
+
+        .about-img-float {
+            position: absolute;
+            bottom: -2rem;
+            right: -2rem;
+            width: 200px;
+            height: 200px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 4px solid #fff
+        }
+
+        .about-badge {
+            position: absolute;
+            top: 2rem;
+            left: -2rem;
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center
+        }
+
+        .about-badge .num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            display: block
+        }
+
+        .about-badge .lbl {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.85
+        }
+
+        /* ===== CEO ===== */
+        .ceo {
+            background: var(--purple-pale)
+        }
+
+        .ceo-card {
+            background: #fff;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow)
+        }
+
+        .ceo-img {
+            height: 400px;
+            overflow: hidden
+        }
+
+        .ceo-img .img-placeholder {
+            height: 100%
+        }
+
+        .ceo-body {
+            padding: 2.5rem
+        }
+
+        .ceo-body h3 {
+            color: var(--purple-dark);
+            margin-bottom: 0.25rem
+        }
+
+        .ceo-role {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem
+        }
+
+        .ceo-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--purple);
+            border-left: 3px solid var(--gold);
+            padding-left: 1.25rem;
+            margin: 1.5rem 0
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -150px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(107, 63, 160, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        .faq::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -100px;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.07), transparent 70%);
+            pointer-events: none;
+        }
+
+        .faq-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            max-width: 820px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Each accordion card */
+        .faq-item {
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--cream);
+            transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(107, 63, 160, 0.35);
+            box-shadow: 0 6px 28px rgba(107, 63, 160, 0.09);
+            transform: translateY(-2px);
+        }
+
+        .faq-item.active {
+            border-color: var(--purple-light);
+            box-shadow: 0 8px 32px rgba(107, 63, 160, 0.13);
+            background: #fff;
+        }
+
+        /* Question button */
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.35rem 1.75rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--purple-dark);
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--purple);
+        }
+
+        .faq-question span {
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        /* Rotating chevron icon */
+        .faq-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--purple-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--purple);
+            flex-shrink: 0;
+            transition: background 0.35s ease, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .faq-item.active .faq-icon {
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: #fff;
+            transform: rotate(180deg);
+        }
+
+        /* Collapsible answer */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 400px;
+        }
+
+        .faq-answer-inner {
+            padding: 0 1.75rem 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            border-top: 1px solid var(--border);
+            padding-top: 1.25rem;
+        }
+
+        /* Delivery breakdown grid inside the answer */
+        .faq-delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .faq-delivery-item {
+            background: var(--purple-pale);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            transition: var(--transition);
+        }
+
+        .faq-delivery-item:hover {
+            background: linear-gradient(135deg, rgba(107, 63, 160, 0.1), rgba(201, 169, 110, 0.08));
+            transform: translateY(-2px);
+        }
+
+        .faq-delivery-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .faq-delivery-item strong {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--purple-dark);
+            letter-spacing: 0.03em;
+        }
+
+        .faq-delivery-item span {
+            font-size: 0.8rem;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* CTA strip at the bottom */
+        .faq-cta {
+            margin-top: 3.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq-cta-inner {
+            background: linear-gradient(135deg, var(--purple-pale), rgba(201, 169, 110, 0.1));
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .faq-cta-inner h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--purple-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .faq-cta-inner p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .faq-question {
+                font-size: 1.05rem;
+                padding: 1.15rem 1.25rem;
+            }
+
+            .faq-answer-inner {
+                padding: 0 1.25rem 1.25rem;
+                padding-top: 1rem;
+            }
+
+            .faq-delivery-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .faq-cta-inner {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.75rem 1.5rem;
+            }
+
+            .faq-cta-inner .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .faq-question {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            .faq-icon {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        /* ===== MISSION/VISION/VALUES/GOALS ===== */
+        .mvvg {
+            background: #fff
+        }
+
+        .mvvg-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem
+        }
+
+        .mvvg-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(107, 63, 160, 0.08);
+            transition: var(--transition);
+            border: 1px solid var(--border)
+        }
+
+        .mvvg-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow)
+        }
+
+        .mvvg-img {
+            height: 200px;
+            overflow: hidden
+        }
+
+        .mvvg-img .img-placeholder {
+            height: 100%
+        }
+
+        .mvvg-body {
+            padding: 1.75rem
+        }
+
+        .mvvg-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--purple-pale);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1rem
+        }
+
+        .mvvg-body h4 {
+            color: var(--purple-dark);
+            margin-bottom: 0.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery {
+            background: var(--purple-pale);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 250px;
+            /* ← KEY FIX: every row is exactly 250px */
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+            /* spans 2 rows = 250px + gap + 250px */
+        }
+
+        /* The image fills its parent item completely */
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            /* ← KEY FIX: always fill the parent, not a fixed px */
+            object-fit: CoNTAIN;
+            object-position: center;
+            display: block;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(74, 39, 114, 0.8), transparent);
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.25rem;
+        }
+
+        .gallery-overlay span {
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            background: linear-gradient(160deg, var(--purple-pale) 0%, #fff 60%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            left: -120px;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(107, 63, 160, 0.07), transparent 70%);
+            pointer-events: none;
+        }
+
+        .testimonials::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            right: -100px;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.09), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Wrapper clips the sliding track */
+        .testi-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sliding track */
+        .testi-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .testi-track:active {
+            cursor: grabbing;
+        }
+
+        /* Individual card */
+        .testi-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            box-shadow: 0 4px 24px rgba(107, 63, 160, 0.06);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+            flex-shrink: 0;
+            /* width set by JS */
+        }
+
+        .testi-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(107, 63, 160, 0.14);
+            border-color: var(--purple-light);
+        }
+
+        /* Top row: quote icon + stars */
+        .testi-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .testi-quote-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .testi-stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .testi-stars span {
+            color: var(--gold);
+            font-size: 1rem;
+            line-height: 1;
+            animation: starPop 0.4s ease both;
+        }
+
+        .testi-stars span:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .testi-stars span:nth-child(2) {
+            animation-delay: 0.10s;
+        }
+
+        .testi-stars span:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .testi-stars span:nth-child(4) {
+            animation-delay: 0.20s;
+        }
+
+        .testi-stars span:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        @keyframes starPop {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Review text */
+        .testi-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text);
+            flex: 1;
+        }
+
+        /* Bottom: avatar + name */
+        .testi-footer {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .testi-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--purple-light), var(--gold));
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .testi-info strong {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--purple-dark);
+        }
+
+        .testi-info span {
+            font-size: 0.78rem;
+            color: var(--gold);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        /* Controls row */
+        .testi-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .testi-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            color: var(--purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 12px rgba(107, 63, 160, 0.08);
+        }
+
+        .testi-btn:hover {
+            background: var(--purple);
+            color: #fff;
+            border-color: var(--purple);
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(107, 63, 160, 0.25);
+        }
+
+        /* Dot indicators */
+        .testi-dots {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .testi-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.35s ease;
+        }
+
+        .testi-dot.active {
+            background: var(--purple);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Overflow clip on wrapper */
+        .testi-wrapper {
+            overflow: hidden;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 200px;
+            }
+
+            .gallery-item.tall {
+                grid-row: span 1;
+                /* don't span on mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 220px;
+            }
+        }
+
+        /* ===== CUSTOM ORDER ===== */
+        .custom-order {
+            background: #fff
+        }
+
+        .order-form {
+            background: var(--purple-pale);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(107, 63, 160, 0.08)
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--purple)
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.8rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text);
+            background: #fff;
+            transition: border-color 0.3s;
+            outline: none
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--purple)
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px
+        }
+
+        .form-full {
+            grid-column: 1/-1
+        }
+
+        .order-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem
+        }
+
+        .order-img-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 280px;
+            box-shadow: var(--shadow)
+        }
+
+        .custom-order .section-title {
+            text-align: left
+        }
+
+        .custom-order .section-label {
+            text-align: left
+        }
+
+        .custom-order .section-sub {
+            text-align: left;
+            margin: 0 0 2rem
+        }
+
+        .promo-points {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0
+        }
+
+        .promo-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--purple-pale);
+            border-radius: 10px
+        }
+
+        .promo-point-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1rem;
+            flex-shrink: 0
+        }
+
+        .promo-point-text strong {
+            display: block;
+            color: var(--purple-dark);
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem
+        }
+
+        .promo-point-text span {
+            font-size: 0.85rem;
+            color: var(--text-muted)
+        }
+
+        /* ===== WHOLESALE ===== */
+        .wholesale {
+            background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%);
+            color: #fff;
+            position: relative;
+            overflow: hidden
+        }
+
+        .wholesale::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            pointer-events: none
+        }
+
+        .wholesale .section-label {
+            color: var(--gold)
+        }
+
+        .wholesale .section-title {
+            color: #fff
+        }
+
+        .wholesale p {
+            color: rgba(255, 255, 255, 0.75)
+        }
+
+        .wholesale-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem
+        }
+
+        .w-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: var(--transition)
+        }
+
+        .w-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px)
+        }
+
+        .w-card-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(201, 169, 110, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem
+        }
+
+        .w-card h4 {
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem
+        }
+
+        .w-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7)
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            background: var(--cream)
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 3rem;
+            align-items: start
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem
+        }
+
+        .contact-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(107, 63, 160, 0.07);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: var(--transition)
+        }
+
+        .contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow)
+        }
+
+        .contact-card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: var(--purple-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0
+        }
+
+        .contact-card-body strong {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--purple-dark);
+            margin-bottom: 0.25rem
+        }
+
+        .contact-card-body a,
+        .contact-card-body span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: none
+        }
+
+        .contact-card-body a:hover {
+            color: var(--purple)
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.5rem
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: var(--purple-pale);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--purple-dark);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition)
+        }
+
+        .social-link:hover {
+            background: var(--purple);
+            color: #fff
+        }
+
+        .social-link .s-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            background: rgba(107, 63, 160, 0.1)
+        }
+
+        .social-link:hover .s-icon {
+            background: rgba(255, 255, 255, 0.2)
+        }
+
+        .map-card {
+            background: #fff;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow)
+        }
+
+        .locations-list {
+            padding: 1.5rem
+        }
+
+        .location-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: var(--transition)
+        }
+
+        .location-item:not(:last-child) {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem
+        }
+
+        .location-item:hover {
+            background: var(--purple-pale)
+        }
+
+        .location-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-top: 0.35rem
+        }
+
+        .location-body strong {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--purple-dark);
+            margin-bottom: 0.2rem
+        }
+
+        .location-body span {
+            font-size: 0.85rem;
+            color: var(--text-muted)
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            transition: var(--transition)
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4)
+        }
+
+        .business-card-section {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-top: 1.5rem
+        }
+
+        .bc-img {
+            height: 160px;
+            border-radius: 10px;
+            overflow: hidden
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--purple-dark);
+            color: #fff;
+            padding: 4rem 0 2rem
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem
+        }
+
+        .footer-brand .logo-text {
+            color: #fff
+        }
+
+        .footer-brand .logo-text span {
+            color: var(--gold-light)
+        }
+
+        .footer-brand p {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 280px
+        }
+
+        .footer-col h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            margin-bottom: 1.25rem
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem
+        }
+
+        .footer-col ul a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s
+        }
+
+        .footer-col ul a:hover {
+            color: #fff
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem
+        }
+
+        .footer-social a:hover {
+            background: var(--gold)
+        }
+
+        /* ===== FLOATING WHATSAPP ===== */
+        .float-wa {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            z-index: 900;
+            text-decoration: none;
+            transition: var(--transition);
+            animation: pulse 2.5s infinite
+        }
+
+        .float-wa:hover {
+            transform: scale(1.1)
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-10px)
+            }
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.3
+            }
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5)
+            }
+
+            50% {
+                box-shadow: 0 4px 40px rgba(37, 211, 102, 0.8)
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:1024px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(max-width:768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                padding-top: 80px
+            }
+
+            .hero-visual {
+                min-height: 350px;
+                order: -1
+            }
+
+            .hero-float-card {
+                display: none
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr
+            }
+
+            .mvvg-grid {
+                grid-template-columns: 1fr
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .gallery-item.tall {
+                grid-row: span 1
+            }
+
+            .wholesale-cards {
+                grid-template-columns: 1fr
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr
+            }
+
+            .form-row {
+                grid-template-columns: 1fr
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .order-images {
+                grid-template-columns: 1fr
+            }
+
+            .about-img-float {
+                display: none
+            }
+
+            .about-badge {
+                display: none
+            }
+        }
+
+        @media(max-width:480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero-stats {
+                gap: 1rem
+            }
+
+            .grid-4 {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/2348109660340" class="float-wa" target="_blank" rel="noopener" title="Chat on WhatsApp">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+    </a>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="logo">
+                    <div class="logo-img"><img src="images/logo.jpg.jpg" style="object-fit: none;" alt=""></div>
+                    <div class="logo-text">Jasperella's<span>Fashion Hub</span></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#custom">Custom Order</a></li>
+                    <li><a href="#wholesale">Wholesale</a></li>
+                    <li><a href="#ceo">Our CEO</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="https://wa.me/2348109660340" class="btn btn-primary nav-cta" target="_blank">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    Order Now
+                </a>
+                <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" onclick="toggleMenu()">✕</button>
+        <a href="#about" onclick="toggleMenu()">About</a>
+        <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+        <a href="#custom" onclick="toggleMenu()">Custom Order</a>
+        <a href="#wholesale" onclick="toggleMenu()">Wholesale</a>
+        <a href="#ceo" onclick="toggleMenu()">Our CEO</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <a href="https://wa.me/2348109660340" target="_blank">WhatsApp Us</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content container" style="padding-top:0;padding-bottom:0;grid-column:1;max-width:none">
+            <span class="hero-badge">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Premium Modest Fashion
+            </span>
+            <h1>Beauty, Elegance<br>and Confidence</h1>
+            <p class="hero-desc">Welcome to Jasperella's Fashion Hub, a clothing brand specially made for you! We exist
+                to provide you with modest apparel, hence glorifying God through your appearance.</p>
+            <p class="hero-tagline">Redefining beauty through modest apparel</p>
+            <div class="hero-actions">
+                <a href="#gallery" class="btn btn-primary">Explore Collection</a>
+                <a href="#custom" class="btn btn-outline">Custom Order</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-num">3</div>
+                    <div class="stat-label">Locations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">100+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">5★</div>
+                    <div class="stat-label">Quality</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual" style="position:relative">
+            <!-- <div class="hero-img-main img-placeholder" style="height:100%;min-height:600px;border-radius:0 0 0 60px;overflow:hidden"> -->
+            <svg width="60" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <path
+                    d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H5v10a2 2 0 002 2h10a2 2 0 002-2V10h1.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z" />
+            </svg>
+            <img src="images/WELCOME.JPG.jpg" alt="Jasperella's Fashion Hub"
+                style="width:100%;height:100%;object-fit:cover">
+
+        </div>
+        <div class="hero-float-card">
+            <div class="hero-float-icon">✦</div>
+            <div class="hero-float-text">
+                <strong>Custom Ankara Wears</strong>
+                <span>Bespoke designs just for you</span>
+            </div>
+        </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <!-- <span>Scroll</span> -->
+        </div>
+    </section>
+
+    <!-- BRAND STRIP -->
+    <div class="brand-strip">
+        <div class="brand-strip-inner">
+            <span class="brand-strip-item">Modest Fashion</span>
+            <span class="brand-strip-item">Ankara Wears</span>
+            <span class="brand-strip-item">Custom Designs</span>
+            <span class="brand-strip-item">Wholesale & Retail</span>
+            <span class="brand-strip-item">Elegance & Grace</span>
+            <span class="brand-strip-item">Glory to God</span>
+            <span class="brand-strip-item">Modest Fashion</span>
+            <span class="brand-strip-item">Ankara Wears</span>
+            <span class="brand-strip-item">Custom Designs</span>
+            <span class="brand-strip-item">Wholesale & Retail</span>
+            <span class="brand-strip-item">Coporate wears</span>
+            <span class="brand-strip-item">Glory to God</span>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="grid-2">
+                <div class="about-visual fade-in">
+                    <!-- <div class="about-img-main img-placeholder"> -->
+
+                    <img src="images/faith.jpg.jpg" alt="Fashion Model" style="width:100%;height:100%;object-fit:cover">
+                    <svg width="50" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+
+                        <!-- <path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" /> -->
+                    </svg>
+                    <!-- <span>faith.jpg</span> -->
+                </div>
+
+                <div class="about-badge">
+                    <span class="num">3+</span>
+                    <span class="lbl">Years of Elegance</span>
+                </div>
+            </div>
+            <div class="about-text fade-in">
+                <span class="section-label">Who We Are</span>
+                <h2 class="section-title">A Brand Built on Faith, Beauty & Craft</h2>
+                <p>Jasperella's Fashion Hub is a premium fashion brand rooted in the belief that clothing can honor God
+                    while celebrating the beauty of every woman. We specialize in exquisite Ankara wears, ready-made
+                    outfits, and fully custom designs.</p>
+                <ul class="feature-list">
+                    <li>Production & sales of premium Ankara wears</li>
+                    <li>Ready-made outfits for every occasion</li>
+                    <li>Wholesale & retail fashion services</li>
+                    <li>Bespoke custom designs crafted to order</li>
+                    <li>Present in Ijebu Ode, Osogbo & London</li>
+                </ul>
+                <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
+                    <a href="#gallery" class="btn btn-primary">View Gallery</a>
+                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- MISSION / VISION / VALUES / GOALS -->
+    <section class="mvvg section" id="mvvg">
+        <div class="container">
+            <div class="text-center fade-in">
+                <span class="section-label">Our Foundation</span>
+                <h2 class="section-title">Mission, Vision, Values & Goals</h2>
+            </div>
+
+
+            <div class="mvvg-card fade-in">
+                <!-- <div class="mvvg-img img-placeholder"> -->
+                <!-- Replace with: <img src="IMAGES/mission.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+                <!-- <span>mission.jpg</span> -->
+            </div>
+            <div class="mvvg-body">
+                <div class="mvvg-icon">🎯</div>
+                <h4>Our Mission</h4>
+                <p>To glorify God through fashion by creating modest, stylish, and high-quality clothing that
+                    reflects inner beauty and dignity. We inspire confidence while embracing cultural values and
+                    elegance.</p>
+            </div>
+        </div>
+
+
+        <div class="mvvg-card fade-in">
+            <!-- <div class="mvvg-img img-placeholder"> -->
+            <!-- Replace with: <img src="IMAGES/vision.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+            <!-- <span>vision.jpg</span> -->
+        </div>
+        <div class="mvvg-body">
+            <div class="mvvg-icon">🌍</div>
+            <h4>Our Vision</h4>
+            <p>To become a globally recognized fashion brand that honors God, promotes modesty, and empowers
+                individuals to express their style with grace, confidence, and purpose through fashion that
+                uplifts, inspires, and unites.</p>
+        </div>
+        </div>
+        <div class="mvvg-card fade-in">
+            <!-- <div class="mvvg-img img-placeholder"> -->
+            <!-- Replace with: <img src="IMAGES/value.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+            <!-- <span>value.jpg</span> -->
+        </div>
+        <div class="mvvg-body">
+            <div class="mvvg-icon">💎</div>
+            <h4>Our Values</h4>
+            <p>We build a community where every customer feels satisfied, loved, beautiful, and confident.
+                Our core values of <strong>Integrity</strong> and <strong>Fidelity</strong> guide every
+                stitch and every relationship.</p>
+        </div>
+        </div>
+        <div class="mvvg-card fade-in">
+            <!-- <div class="mvvg-img img-placeholder"> -->
+            <!-- Replace with: <img src="IMAGES/goal.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+            <!-- <span>goal.jpg</span> -->
+        </div>
+        <div class="mvvg-body">
+            <div class="mvvg-icon">🌟</div>
+            <h4>Our Goals</h4>
+            <p>To expand our global reach, empower women through modest fashion, build lasting relationships
+                with customers, and continually elevate the standard of African-inspired couture on the
+                world stage.</p>
+        </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery section" id="gallery">
+        <div class="container">
+            <div class="text-center fade-in">
+                <span class="section-label">Our Work</span>
+                <h2 class="section-title">The Jasperella Gallery</h2>
+                <p class="section-sub">A showcase of our finest Ankara designs, ready-made outfits, and bespoke
+                    creations — each piece crafted with love and elegance.</p>
+            </div>
+
+            <div class="gallery-grid fade-in">
+
+                <div class="gallery-item tall">
+                    <img src="images/jas2.jpg.jpg" alt="Varieties of beauties" class="gallery-img">
+                    <div class="gallery-overlay"><span>Varieties of beauties</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/photoshoot.jpg.jpg" alt="Elegant Aso-oke" class="gallery-img">
+                    <div class="gallery-overlay"><span>Let's get you photoshoot ready. </span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/asooke.jpg.jpg" alt="Premium Designs" class="gallery-img">
+                    <div class="gallery-overlay"><span>Elegant-ASO-OKE</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/TWIN.JPG.jpg" alt="Twin Ankara Sets" class="gallery-img">
+                    <div class="gallery-overlay"><span>Ankara pants</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/Blur trousers.jpg.jpg" alt="TFA Collection" class="gallery-img">
+                    <div class="gallery-overlay"><span>You deserve this beauty</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/long boubou.jpg.jpg" alt="Short Styles" class="gallery-img">
+                    <div class="gallery-overlay"><span>Rich Auntie's style</span></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/jacket.jpg.jpg" alt="Short Styles" class="gallery-img">
+                    <div class="gallery-overlay"><span>Aso-oke and Ankara jacket.</span></div>
+                </div>
+
+            </div>
+
+            <div style="text-align:center;margin-top:2.5rem">
+                <a href="https://www.instagram.com/jasperella.fashion.hub?igsh=NnM1cHN5aW9heDFj" target="_blank"
+                    rel="noopener" class="btn btn-outline">
+                    View More on Instagram →
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- TESTIMONIALS -->
+    <section class="testimonials section" id="testimonials">
+        <div class="container">
+
+            <div class="text-center fade-in">
+                <span class="section-label">Kind Words</span>
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p style="max-width:520px;margin:0 auto 3rem;">Every stitch carries a story. Here is what some of our
+                    beloved customers have to say about their Jasperella experience.
+                </p>
+            </div>
+
+            <div class="testi-wrapper fade-in">
+
+                <!-- TRACK -->
+                <div class="testi-track" id="testiTrack">
+
+                    <div class="testi-card">
+                        <div class="testi-top">
+                            <div class="testi-quote-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.95.76-3 .66-1.06 1.514-1.88 2.56-2.46L9.47 6c-1.48.67-2.66 1.67-3.54 3-.88 1.32-1.32 2.8-1.32 4.43 0 1.43.408 2.57 1.224 3.43.816.86 1.89 1.29 3.22 1.29.93 0 1.72-.28 2.37-.842.65-.562.976-1.3.976-2.22zm9.124 0c0-.88-.23-1.618-.69-2.217-.326-.42-.77-.692-1.327-.817-.56-.124-1.074-.13-1.54-.022-.16-.94.09-1.94.75-3 .66-1.06 1.514-1.878 2.56-2.457L18.596 6c-1.48.67-2.66 1.67-3.54 3-.875 1.32-1.314 2.8-1.314 4.43 0 1.43.407 2.57 1.222 3.43.816.86 1.89 1.29 3.22 1.29.93 0 1.72-.28 2.37-.842.65-.562.976-1.3.976-2.22z" />
+                                </svg>
+                            </div>
+                            <div class="testi-stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                        </div>
+                        <p class="testi-text">"I ordered a custom Ankara dress for my sister's introduction and I was
+                            absolutely blown away. The fit was perfect, the fabric was premium, and it arrived right on
+                            time. Jasperella's Fashion Hub truly understands elegance."</p>
+                        <div class="testi-footer">
+                            <div class="testi-avatar">A</div>
+                            <div class="testi-info">
+                                <strong>Adaeze Okonkwo</strong>
+                                <span>Lace Gown — Lagos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testi-card">
+                        <div class="testi-top">
+                            <div class="testi-quote-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.95.76-3 .66-1.06 1.514-1.88 2.56-2.46L9.47 6c-1.48.67-2.66 1.67-3.54 3-.88 1.32-1.32 2.8-1.32 4.43 0 1.43.408 2.57 1.224 3.43.816.86 1.89 1.29 3.22 1.29.93 0 1.72-.28 2.37-.842.65-.562.976-1.3.976-2.22zm9.124 0c0-.88-.23-1.618-.69-2.217-.326-.42-.77-.692-1.327-.817-.56-.124-1.074-.13-1.54-.022-.16-.94.09-1.94.75-3 .66-1.06 1.514-1.878 2.56-2.457L18.596 6c-1.48.67-2.66 1.67-3.54 3-.875 1.32-1.314 2.8-1.314 4.43 0 1.43.407 2.57 1.222 3.43.816.86 1.89 1.29 3.22 1.29.93 0 1.72-.28 2.37-.842.65-.562.976-1.3.976-2.22z" />
+                                </svg>
+                            </div>
+                            <div class="testi-stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                        </div>
+                        <p class="testi-text">"Ifeoluwa is so talented and professional. She made matching outfits for
+                            my whole family for our anniversary and everyone kept asking where we got them. The quality,
+                            the
+                            colour, the creativity — everything was just stunning."</p>
+                        <div class="testi-footer">
+                            <div class="testi-avatar">F</div>
+                            <div class="testi-info">
+                                <strong>Funmilayo Bello</strong>
+                                <span>Family Ankara Set — UK</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testi-card">
+                        <div class="testi-top">
+                            <div class="testi-quote-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.95.76-3 .66-1.06 1.514-1.88 2.56-2.46L9.47 6c-1.48.67-2.66 1.67-3.54 3-.88 1.32-1.32 2.8-1.32 4.43 0 1.43.408 2.57 1.224 3.43.816.86 1.89 1.29 3.22 1.29.93 0 1.72-.28 2.37-.842.65-.562.976-1.3.976-2.22zm9.124 0c0-.88-.23-1.618-.69-2.217-.326-.42-.77-.692-1.327-.817-.56-.124-1.074-.13-1.54-.022-.16-.94.09-1.94.75-3 .66-1.06 1.514-1.878 2.56-2.457L18.596 6c-1.48.67-2.66 1.67-3.54 3-.875 1.32-1.314 2.8-1.314 4.43 0 1.43.407 2.57 1.222 3.43.816.86 1.89 1.29 3.22 1.29.93 0 1.72-.28 2.37-.842.65-.562.976-1.3.976-2.22z" />
+                                </svg>
+                            </div>
+                            <div class="testi-stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                        </div>
+                        <p class="testi-text">"Absolutely thrilled with my order! The dress arrived exactly as shown
+                            online—same color, same design, and perfect fit. I was honestly worried about online
+                            shopping, but this exceeded my expectations. The quality is amazing, and I’ll definitely be
+                            ordering again!"</p>
+                        <div class="testi-footer">
+                            <div class="testi-avatar">F</div>
+                            <div class="testi-info">
+                                <strong>Jemimah Adebayo</strong>
+                                <span>Ankara pant trousers — Benin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+    <!-- MEET THE CEO -->
+    <section class="ceo section" id="ceo">
+        <div class="container">
+            <div class="text-center fade-in" style="margin-bottom:3rem">
+                <span class="section-label">Leadership</span>
+                <h2 class="section-title">Meet the CEO</h2>
+            </div>
+            <div class="grid-2" style="align-items:start">
+                <div class="ceo-card fade-in">
+                    <div class="ceo-img img-placeholder">
+                        <img src="images/ife.jpg.jpg"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top">
+                        <svg width="50" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1">
+                            <!-- <circle cx="12" cy="7" r="4" /> -->
+                            <!-- <path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" /> -->
+                        </svg>
+                        <!-- <span>ife.jpg</span> -->
+                    </div>
+                    <div class="ceo-body">
+                        <h3>Ifeoluwa Victoria Akinwande</h3>
+                        <p class="ceo-role">Founder & Chief Executive Officer</p>
+                        <div class="ceo-quote">"Fashion is not just clothing — it is a
+                            testimony of grace, dignity, and
+                            the beauty God has placed within every woman."</div>
+                        <p>With a deep passion for modest fashion and a heart for
+                            empowering women, Ifeoluwa founded
+                            Jasperella's Fashion Hub on the conviction that every woman
+                            deserves to feel beautiful,
+                            confident, and honored through what she wears.</p>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:1.5rem" class="fade-in">
+                    <div
+                        style="background:#fff;border-radius:var(--radius);padding:2rem;box-shadow:0 4px 20px rgba(107,63,160,0.07)">
+                        <h3 style="color:var(--purple-dark);margin-bottom:1rem;font-family:'Cormorant Garamond',serif">
+                            The Story Behind the Brand</h3>
+                        <p>Jasperella's Fashion Hub was born from a desire to bridge
+                            African fashion heritage with
+                            modern modest styling. What began as a local atelier in Ogun
+                            State, has grown
+                            into a brand with presence across Nigeria and the United
+                            Kingdom.</p>
+                        <p style="margin-top:1rem">Every piece tells a story — of
+                            craftsmanship, culture, and a
+                            commitment to glorifying God through fashion.</p>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+                        <div style="border-radius:var(--radius);overflow:hidden;height:180px" class="img-placeholder">
+                            <img src="images/boubou.jpg.jpg" style="width:100%;height:100%;object-fit:contain">
+                            >
+                        </div>
+                        <div style="border-radius:var(--radius);overflow:hidden;height:180px" class="img-placeholder">
+                            <img src="images/adire.jpg.jpg" style="width:100%;height:100%;object-fit:cover">
+
+                        </div>
+                    </div>
+                    <div style="border-radius:var(--radius);overflow:hidden;height:180px" class="img-placeholder">
+                        <img src="images/sis.jpg.jpg" style="width:100%;height:100%;object-fit:contain">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- CUSTOM ORDER -->
+    <section class="custom-order section" id="custom">
+        <div class="container">
+            <div class="grid-2">
+                <div class="fade-in">
+                    <span class="section-label">Bespoke Fashion</span>
+                    <h2 class="section-title">Custom Made For You</h2>
+                    <p class="section-sub">Every body deserves a garment made just for
+                        it. Our custom order service
+                        brings your fashion vision to life with precision, elegance, and
+                        care.</p>
+                    <div class="order-images">
+                        <div class="order-img-card img-placeholder">
+                            <img src="images/family.jpg.jpg" style="width:100%;height:100%;object-fit:cover">
+                            <!-- <span>family.jpg</span> -->
+                        </div>
+                        <div class="order-img-card img-placeholder">
+                            <img src="images/Evelyn.jpg.jpg" style="width:100%;height:100%;object-fit:contain">
+                            <!-- <span>Evelyn.jpg</span> -->
+                        </div>
+                    </div>
+                    <div class="promo-points">
+                        <div class="promo-point">
+                            <div class="promo-point-icon">📐</div>
+                            <div class="promo-point-text">
+                                <strong>Precise Measurements</strong>
+                                <span>We take every detail seriously to ensure a perfect
+                                    fit</span>
+                            </div>
+                        </div>
+                        <div class="promo-point">
+                            <div class="promo-point-icon">🎨</div>
+                            <div class="promo-point-text">
+                                <strong>Your Vision, Our Craft</strong>
+                                <span>Share your inspiration and we bring it to
+                                    life</span>
+                            </div>
+                        </div>
+                        <div class="promo-point">
+                            <div class="promo-point-icon">✂️</div>
+                            <div class="promo-point-text">
+                                <strong>Premium Ankara Fabrics</strong>
+                                <span>Only the finest materials for every design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.5rem">
+                    <a href="https://wa.me/2348109660340?text=Hello%20Jasperella's%20Fashion%20Hub!%20I'd%20like%20to%20place%20a%20custom%20order."
+                        target="_blank" class="btn btn-gold" style="flex:1;justify-content:center">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        Order via WhatsApp
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- WHOLESALE & RETAIL -->
+    <section class="wholesale section" id="wholesale">
+        <div class="container">
+            <div class="text-center fade-in">
+                <span class="section-label">Trade & Retail</span>
+                <h2 class="section-title">Wholesale & Retail Services</h2>
+                <p style="color:rgba(255,255,255,0.75);max-width:550px;margin:0 auto">Whether you're a fashion retailer
+                    looking to stock premium Ankara wears or an individual styling for a special occasion, we have the
+                    perfect offer for you.</p>
+            </div>
+            <div class="wholesale-cards">
+                <div class="w-card fade-in">
+                    <div class="w-card-icon">🏪</div>
+                    <h4>Retail and wholesales Shopping in NIGERIA via WHATSAPP</h4>
+                    <p>Upgrade your wardrobe with quality wholesale and retail fashion at prices you’ll love — shop with
+                        us anywhere in Nigeria!</p>
+                    <a href="https://wa.me/2348109660340?text=Hi!%20I'm%20interested%20in%20retail%20shopping."
+                        target="_blank" class="btn btn-outline"
+                        style="margin-top:1.5rem;border-color:rgba(255,255,255,0.4);color:#fff;background:rgba(255,255,255,0.1)">Shop
+                        Now</a>
+                </div>
+                <div class="w-card fade-in">
+                    <div class="w-card-icon">📦</div>
+                    <h4>Retail and wholesales Shopping in the UK via WHATSAPP</h4>
+                    <p>Discover stylish, affordable wholesale and retail clothing delivered across the UK, Our London
+                        branch ensures fast, reliable delivery for our
+                        international clientele. </p>
+                    <a href="https://wa.me/447587464140" target="_blank" class="btn btn-outline"
+                        style="margin-top:1.5rem;border-color:rgba(255,255,255,0.4);color:#fff;background:rgba(255,255,255,0.1)">Shop
+                        Now</a>
+                </div>
+                <div class="w-card fade-in">
+                    <div class="w-card-icon">🌍</div>
+                    <h4>Retail and wholesales Shopping in the Uk and in the UK via our online shop</h4>
+                    <p>Visit our e-commerce page now for premium shopping experience. Fashion made easy for everyone!
+                    </p>
+                    <a href="https://wa.me/447587464140" class="btn btn-outline"
+                        style="margin-top:1.5rem;border-color:rgba(255,255,255,0.4);color:#fff;background:rgba(255,255,255,0.1)">Explore!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq section" id="faq">
+        <div class="container">
+
+            <div class="text-center fade-in">
+                <span class="section-label">Got Questions?</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p style="max-width:520px;margin:0 auto 3rem;">Everything you need to know about ordering, delivery, and
+                    working with Jasperella's Fashion Hub.</p>
+            </div>
+
+            <div class="faq-grid fade-in">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+                        <span>How do I place an order?</span>
+                        <div class="faq-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Send us a DM on Instagram or WhatsApp with the picture of the item you love or you can do a
+                            direct shopping on our online shop site. Our team will guide you through the rest of the
+                            process smoothly and quickly.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+                        <span>Do you do custom orders?</span>
+                        <div class="faq-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Absolutely! We make both Ready-To-Wear (RTW) and fully custom-made pieces. Whether you have
+                            a specific design in mind or need inspiration, we are here to bring your vision to life with
+                            elegance and precision.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+                        <span>How long does delivery take?</span>
+                        <div class="faq-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <div class="faq-delivery-grid">
+                                <div class="faq-delivery-item">
+                                    <div class="faq-delivery-icon">👗</div>
+                                    <strong>Ready-To-Wear</strong>
+                                    <span>1–3 working days</span>
+                                </div>
+                                <div class="faq-delivery-item">
+                                    <div class="faq-delivery-icon">✂️</div>
+                                    <strong>Made to Order</strong>
+                                    <span>3–7 working days</span>
+                                </div>
+                                <div class="faq-delivery-item">
+                                    <div class="faq-delivery-icon">💎</div>
+                                    <strong>Custom Orders</strong>
+                                    <span>3–7 working days</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+                        <span>Do you offer pickup?</span>
+                        <div class="faq-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes! Pickup is available by appointment after payment has been confirmed. Simply let us know
+                            your preferred time and we will arrange everything for a smooth, pleasant experience.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+                        <span>Do you accept returns or refunds?</span>
+                        <div class="faq-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Exchanges are accepted only in cases where an error occurs on our end. We take great pride
+                            in our quality and craftsmanship, and we are committed to making sure every customer is
+                            fully satisfied with their order.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+                        <span>Do you deliver outside Nigeria?</span>
+                        <div class="faq-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes! International delivery is available. We currently serve customers in the United Kingdom
+                            through our London branch and can ship to other international locations. Reach out to us for
+                            shipping details and rates to your location.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA STRIP -->
+            <div class="faq-cta fade-in">
+                <div class="faq-cta-inner">
+                    <div>
+                        <h4>Still have a question?</h4>
+                        <p>Our team is always happy to help. Reach out anytime.</p>
+                    </div>
+                    <a href="https://wa.me/2348109660340?text=Hello%20Jasperella's%20Fashion%20Hub!%20I%20have%20a%20question."
+                        target="_blank" rel="noopener" class="btn btn-primary">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="text-center fade-in" style="margin-bottom:3rem">
+                <span class="section-label">Get In Touch</span>
+                <h2 class="section-title">Reach Out to Us</h2>
+                <p style="max-width:500px;margin:0 auto">We'd love to hear from you. Connect with us through any of the
+                    channels below.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <div class="contact-card">
+                        <div class="contact-card-icon">📞</div>
+                        <div class="contact-card-body">
+                            <strong>Phone / WhatsApp</strong>
+                            <a href="tel:+2348109660340">0810 966 0340</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-card-icon">✉️</div>
+                        <div class="contact-card-body">
+                            <strong>Email</strong>
+                            <a href="mailto:Jasperellastore@gmail.com">Jasperellastore@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-card-icon">📍</div>
+                        <div class="contact-card-body">
+                            <strong>Locations</strong>
+                            <span>Ijebu Ode, Ogun State • Osogbo, Osun State • London, UK</span>
+                        </div>
+                    </div>
+                    <div
+                        style="background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:0 4px 20px rgba(107,63,160,0.07)">
+                        <strong
+                            style="display:block;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;color:var(--purple-dark);margin-bottom:1rem">Follow
+                            Us</strong>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/jasperella.fashion.hub?igsh=NnM1cHN5aW9heDFj"
+                                target="_blank" rel="noopener" class="social-link">
+                                <div class="s-icon">
+                                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                    </svg>
+                                </div>
+                                Jasperella's Fashion Hub
+                            </a>
+                            <a href="https://www.facebook.com/share/p/1EzYQX3YaK/?mibextid=wwXIfr" target="_blank"
+                                rel="noopener" class="social-link">
+                                <div class="s-icon">
+                                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                    </svg>
+                                </div>
+                                Jasperella's fashion hub.
+                            </a>
+                            <a href="https://youtube.com/@jasperellafashionhub?si=7nEs4BuEDvLE5wuv" target="_blank"
+                                rel="noopener" class="social-link">
+                                <div class="s-icon">
+                                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                    </svg>
+                                </div>
+                                Jasperella's Fashion Hub
+                            </a>
+                            <a href="https://www.tiktok.com/@jasperellas.fashi?_r=1&_t=ZS-96i3KyvKYho" target="_blank"
+                                rel="noopener" class="social-link">
+                                <div class="s-icon">
+                                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M19.589 6.686a4.793 4.793 0 01-3.77-4.213V2h-3.193v13.548a2.896 2.896 0 11-2.896-2.896c.298 0 .586.045.857.127V9.522a6.09 6.09 0 00-.857-.061A6.09 6.09 0 1015.82 15.55V8.687a7.977 7.977 0 004.77 1.584V7.078a4.79 4.79 0 01-.001-.392z" />
+                                    </svg>
+                                </div>
+                                Jasperella's Fashion Hub
+                            </a>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/2348109660340" target="_blank" class="whatsapp-btn">
+                        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                                . />
+                        </svg>
+                        Chat with Us on WhatsApp
+                    </a>
+                </div>
+                <div class="fade-in">
+                    <div class="order-form">
+                        <h3
+                            style="color:var(--purple-dark);margin-bottom:1.5rem;font-family:'Cormorant Garamond',serif">
+                            SEND US A MESSAGE.</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" placeholder="Your full name">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" placeholder="+xxx xxx xxx xxxx">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="your@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Nationality</label>
+                                <input type="text" placeholder="Your Nationality">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" placeholder="Your State of residence.">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-full">
+                            <label>Talk to us</label>
+                            <textarea
+                                placeholder="Ask about our custom designs,orders, or fashion consultations."></textarea>
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.5rem">
+                        <a href="https://wa.me/2348109660340?text=Hello%20Jasperella's%20Fashion%20Hub!%20I'd%20like%20to%20place%20a%20custom%20order."
+                            target="_blank" class="btn btn-gold" style="flex:1;justify-content:center">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                            </svg>
+                            Order via WhatsApp
+                        </a>
+                        <button class="btn btn-primary" style="flex:1;justify-content:center"
+                            onclick="submitOrder()">Submit Message</button>
+                    </div>
+                    <div class="fade-in">
+                        <div class="map-card">
+                            <div style="padding:1.5rem;border-bottom:1px solid var(--border)">
+                                <h3
+                                    style="color:var(--purple-dark);font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:0.25rem">
+                                    Our Locations</h3>
+                                <p style="font-size:0.85rem">Serving you locally and globally</p>
+                            </div>
+                            <div class="locations-list">
+                                <div class="location-item">
+                                    <div class="location-dot"></div>
+                                    <div class="location-body">
+                                        <strong>Head Office — Ijebu Ode</strong>
+                                        <span>Ijebu Ode, Ogun State, Nigeria</span>
+                                    </div>
+                                </div>
+                                <div class="location-item">
+                                    <div class="location-dot"></div>
+                                    <div class="location-body">
+                                        <strong>Branch — Osogbo</strong>
+                                        <span>Osogbo, Osun State, Nigeria</span>
+                                    </div>
+                                </div>
+                                <div class="location-item">
+                                    <div class="location-dot" style="background:var(--purple)"></div>
+                                    <div class="location-body">
+                                        <strong>International — London</strong>
+                                        <span>London, United Kingdom</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding:1.5rem;border-top:1px solid var(--border)">
+                                <h4
+                                    style="color:var(--purple-dark);margin-bottom:1.25rem;font-family:'Cormorant Garamond',serif">
+                                    Business Card</h4>
+                                <!-- <div class="bc-img img-placeholder" -->
+                                <!-- style="background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:#fff"> -->
+                                <img src="images/business.jpg.jpg" style="width:100%;height:100%;object-fit:cover">
+                                <div style="text-align:center;position:relative;z-index:1;padding:1.5rem">
+                                    <div
+                                        style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;letter-spacing:0.05em;margin-bottom:0.5rem">
+                                        Jasperella's Fashion Hub</div>
+                                    <div
+                                        style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.8;margin-bottom:1rem">
+                                        Premium Modest Fashion</div>
+                                    <div style="font-size:0.8rem;opacity:0.9">📞 0810 966 0340</div>
+                                    <div style="font-size:0.8rem;opacity:0.9;margin-top:0.25rem">✉️
+                                        Jasperellastore@gmail.com</div>
+                                    <div style="font-size:0.75rem;opacity:0.75;margin-top:0.5rem">Ijebu Ode • Osogbo •
+                                        London</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo" style="margin-bottom:1rem">
+                        <div class="logo-img"><img src="images/logo.jpg.jpg" style="object-fit: none;"></div>
+                        <div class="logo-text">Jasperella's<span>Fashion Hub</span></div>
+                    </div>
+                    <p>A premium modest fashion brand dedicated to glorifying God through elegant, stylish, and quality
+                        Ankara designs.</p>
+                    <div style="margin-top:1.5rem;display:flex;gap:0.75rem">
+                        <a href="https://www.instagram.com/jasperella.fashion.hub?igsh=NnM1cHN5aW9heDFj" target="_blank"
+                            class="footer-social" style="display:contents">
+                            <div class="footer-social"><a
+                                    href="https://www.instagram.com/jasperella.fashion.hub?igsh=NnM1cHN5aW9heDFj"
+                                    target="_blank" style="text-decoration:none">📷</a></div>
+                        </a>
+                    </div>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/jasperella.fashion.hub?igsh=NnM1cHN5aW9heDFj" target="_blank"
+                            title="Instagram">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/share/p/1EzYQX3YaK/?mibextid=wwXIfr" target="_blank"
+                            title="Facebook">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com/@jasperellafashionhub?si=7nEs4BuEDvLE5wuv" target="_blank"
+                            title="YouTube">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@jasperellas.fashi?_r=1&_t=ZS-96i3KyvKYho" target="_blank"
+                            title="tiktok">
+                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19.589 6.686a4.793 4.793 0 01-3.77-4.213V2h-3.193v13.548a2.896 2.896 0 11-2.896-2.896c.298 0 .586.045.857.127V9.522a6.09 6.09 0 00-.857-.061A6.09 6.09 0 1015.82 15.55V8.687a7.977 7.977 0 004.77 1.584V7.078a4.79 4.79 0 01-.001-.392z" />
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/2348109660340" target="_blank" title="WhatsApp">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                                    . />
+                            </svg>
+                        </a>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#custom">Custom Order</a></li>
+                    <li><a href="#wholesale">Wholesale</a></li>
+                    <li><a href="#ceo">Meet the CEO</a></li>
+                    <li><a href="#mvvg">Mission & Vision</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="#custom">Bespoke Designs</a></li>
+                    <li><a href="#gallery">Ready-Made Ankara</a></li>
+                    <li><a href="#wholesale">Wholesale Supply</a></li>
+                    <li><a href="#wholesale">Retail Shopping</a></li>
+                    <li><a href="#contact">International Orders</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contact</h5>
+                <ul>
+                    <li><a href="tel:+2348109660340">0810 966 0340</a></li>
+                    <li><a href="mailto:Jasperellastore@gmail.com">Jasperellastore@gmail.com</a></li>
+                    <li><a href="#">Ijebu Ode, Ogun State</a></li>
+                    <li><a href="#">Osogbo, Osun State</a></li>
+                    <li><a href="#">London, UK</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Jasperella's Fashion Hub. All rights reserved. <br>Built with ❤️ by TFA Codes for modest
+                fashion.</p>
+            <p style="color:rgba(255,255,255,0.4);font-size:0.75rem">Beauty · Elegance · Confidence</p>
+        </div>
+        </div>
+    </footer>
+
+    <script>
+        // NAVBAR SCROLL
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // MOBILE MENU
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+            document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+        }
+
+        // SCROLL ANIMATIONS
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // GALLERY LIGHTBOX HINT
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const name = item.querySelector('span')?.textContent || 'Gallery item';
+                console.log('Gallery item clicked:', name);
+            });
+        });
+
+        // ORDER FORM SUBMIT
+        function submitOrder() {
+            const inputs = document.querySelectorAll('.order-form input, .order-form textarea, .order-form select');
+            let data = [];
+            inputs.forEach(inp => {
+                if (inp.value && inp.placeholder) data.push(`${inp.placeholder}: ${inp.value}`);
+            });
+            const name = document.querySelector('.order-form input[type="text"]')?.value || 'Customer';
+            const msg = encodeURIComponent(`Hello Jasperella's Fashion Hub! My name is ${name} and I'd like to place a custom order. Please contact me to discuss the details.`);
+            window.open(`https://wa.me/2348109660340?text=${msg}`, '_blank');
+        }
+
+        // SMOOTH HERO FADE ON LOAD
+        document.querySelector('.hero-content').style.opacity = '0';
+        document.querySelector('.hero-visual').style.opacity = '0';
+        setTimeout(() => {
+            document.querySelector('.hero-content').style.opacity = '1';
+            document.querySelector('.hero-visual').style.opacity = '1';
+        }, 100);
+        // FAQ ACCORDION
+        function toggleFAQ(btn) {
+            const item = btn.closest('.faq-item');
+            const isActive = item.classList.contains('active');
+
+            // Close all open items
+            document.querySelectorAll('.faq-item.active').forEach(open => {
+                open.classList.remove('active');
+                open.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+
+            // Open clicked item if it wasn't already open
+            if (!isActive) {
+                item.classList.add('active');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        /* ===== TESTIMONIALS CAROUSEL ===== */
+        (function () {
+            const track = document.getElementById('testiTrack');
+            const dotsBox = document.getElementById('testiDots');
+            if (!track) return;
+
+            const cards = Array.from(track.children);
+            const total = cards.length;
+            let current = 0;
+            let autoTimer;
+            let visibleCount = getVisible();
+
+            /* How many cards show at once based on viewport */
+            function getVisible() {
+                if (window.innerWidth < 640) return 1;
+                if (window.innerWidth < 1024) return 2;
+                return 3;
+            }
+
+            /* Set each card's width to fit visibleCount per view */
+            function sizeCards() {
+                visibleCount = getVisible();
+                const gap = 24; // 1.5rem gap
+                const wrapperW = track.parentElement.offsetWidth;
+                const cardW = (wrapperW - gap * (visibleCount - 1)) / visibleCount;
+                cards.forEach(c => {
+                    c.style.width = cardW + 'px';
+                    c.style.minWidth = cardW + 'px';
+                });
+            }
+
+            /* Build dot buttons */
+            function buildDots() {
+                dotsBox.innerHTML = '';
+                const pageCount = total - visibleCount + 1;
+                for (let i = 0; i < pageCount; i++) {
+                    const d = document.createElement('button');
+                    d.className = 'testi-dot' + (i === 0 ? ' active' : '');
+                    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    d.addEventListener('click', () => goTo(i));
+                    dotsBox.appendChild(d);
+                }
+            }
+
+            /* Move to index */
+            function goTo(idx) {
+                const pageCount = total - visibleCount + 1;
+                current = Math.max(0, Math.min(idx, pageCount - 1));
+                const gap = 24;
+                const cardW = cards[0].offsetWidth;
+                track.style.transform = `translateX(-${current * (cardW + gap)}px)`;
+                dotsBox.querySelectorAll('.testi-dot').forEach((d, i) => {
+                    d.classList.toggle('active', i === current);
+                });
+            }
+
+            /* Public move called by prev/next buttons */
+            window.moveCarousel = function (dir) {
+                resetAuto();
+                const pageCount = total - visibleCount + 1;
+                goTo((current + dir + pageCount) % pageCount);
+            };
+
+            /* Auto-play */
+            function startAuto() {
+                autoTimer = setInterval(() => {
+                    const pageCount = total - visibleCount + 1;
+                    goTo((current + 1) % pageCount);
+                }, 4500);
+            }
+
+            function resetAuto() {
+                clearInterval(autoTimer);
+                startAuto();
+            }
+
+            /* Touch / drag swipe */
+            let startX = 0, isDragging = false;
+            track.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; });
+            track.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('mouseup', e => { if (isDragging) { handleSwipe(e.clientX - startX); isDragging = false; } });
+            track.addEventListener('touchend', e => { if (isDragging) { handleSwipe(e.changedTouches[0].clientX - startX); isDragging = false; } });
+            track.addEventListener('mouseleave', () => { isDragging = false; });
+
+            function handleSwipe(delta) {
+                if (Math.abs(delta) < 40) return;
+                resetAuto();
+                moveCarousel(delta < 0 ? 1 : -1);
+            }
+
+            /* Pause on hover */
+            track.addEventListener('mouseenter', () => clearInterval(autoTimer));
+            track.addEventListener('mouseleave', () => startAuto());
+
+            /* Init & resize */
+            function init() {
+                sizeCards();
+                buildDots();
+                goTo(0);
+            }
+
+            window.addEventListener('resize', () => {
+                const prev = visibleCount;
+                sizeCards();
+                if (prev !== visibleCount) { buildDots(); goTo(0); }
+                else goTo(current);
+            });
+
+            init();
+            startAuto();
+        })();
+    </script>
+</body>
+
+</html>
